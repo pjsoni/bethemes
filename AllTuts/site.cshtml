@@ -8,8 +8,6 @@
     string bodyCss = string.Format("sidebars{0}{1}",
         isPost ? " single-post" : string.Empty,
         isPage ? " page" : string.Empty);
-
-    string lightBoxString = "'a[@rel*=lightbox]'";  
 }
  @*PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
   xmlns="http://www.w3.org/1999/xhtml"
@@ -21,22 +19,16 @@
     <link rel="shortcut icon" href="@Href(Utils.RelativeWebRoot + "pics/blogengine.ico")" type="image/x-icon"/>
     <link href="@Href(Utils.RelativeWebRoot + "themes/" + BlogSettings.Instance.Theme + "/style.css")" rel="stylesheet" type="text/css" />
     <link href="@Href(Utils.RelativeWebRoot + "themes/" + BlogSettings.Instance.Theme + "/css/ddsmoothmenu.css")" rel="stylesheet" type="text/css" />
-    <link href="@Href(Utils.RelativeWebRoot + "themes/" + BlogSettings.Instance.Theme + "/css/jquery.lightbox-0.5.css")" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="@Href(Utils.RelativeWebRoot + "themes/" + BlogSettings.Instance.Theme + "/js/jquery-1.7.2.min.js")" ></script>
-    <script type="text/javascript" src="@Href(Utils.RelativeWebRoot + "themes/" + BlogSettings.Instance.Theme + "/js/jquery.lightbox-0.5.min.js")"></script>
+    <script type="text/javascript" src="@Href(Utils.RelativeWebRoot + "themes/" + BlogSettings.Instance.Theme + "/js/jquery-1.7.2.min.js")"></script>
     <script type="text/javascript" src="@Href(Utils.RelativeWebRoot + "themes/" + BlogSettings.Instance.Theme + "/js/ddsmoothmenu.js")"></script>
     <!-- lightbox initialize script -->
     <script type="text/javascript">
-        $(function () {
-            // thanks to Selman AY http://commentlines.com/
-            // for implementation of ddsmoothmenu
-            ddsmoothmenu.init({
-                mainmenuid: "topMenu",
-                orientation: 'h',
-                classname: 'ddsmoothmenu',
-                contentsource: "markup"
-            });
-        });
+        ddsmoothmenu.init({
+			mainmenuid: "topMenu",
+			orientation: 'h',
+			classname: 'ddsmoothmenu',
+			contentsource: "markup"
+		}); 
     </script>
 </head>
 <body>
@@ -58,17 +50,19 @@
                     <li><a href="@(Utils.AbsoluteWebRoot)contact.aspx">@(Resources.labels.contact)</a></li>
                     @foreach (BlogEngine.Core.Page parentPage in BlogEngine.Core.Page.Pages.Where(p => !p.HasParentPage))
                     {
+                        if(parentPage.ShowInList){
                         <li><a href="@parentPage.RelativeLink" title="@parentPage.Title">@parentPage.Title</a>
                             @if (parentPage.HasChildPages)
                             {
                                 <ul>
                                     @foreach (BlogEngine.Core.Page childPage in BlogEngine.Core.Page.Pages.Where(p => p.Parent == parentPage.Id))
                                     {
-                                        <li class="page_item"><a href="@childPage.RelativeLink" title="@childPage.Title">@childPage.Title</a></li>
+                                        if(childPage.ShowInList){<li class="page_item"><a href="@childPage.RelativeLink" title="@childPage.Title">@childPage.Title</a></li>}
                                     }
                                 </ul>
                             }
                         </li>
+                        }
                     }
                 </ul>
             </div>
