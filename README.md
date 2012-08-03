@@ -5,3 +5,4 @@ AllTuts, Razor-based BlogEngine.NET theme based on AllTuts wordpress theme.
 * V2.5.0.0: Initial release of theme for Blogengine.NET V2.5.
 * V2.5.0.1: Includes fixes for some bugs pointed by Selman AY, Janier Davila. 
 * V2.5.0.2: BE2.6 compatibility, CSS fix for Search page.
+* V2.5.0.3: CSS fix for ddsmoothmenu.
